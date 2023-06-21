@@ -46,7 +46,7 @@ class FiniteAutomata:
                         dest), label=transition[0][1])
 
         # Render the graph to a PNG image
-        dot.render("figures/automata", format="png", view=True)
+        dot.render("figures/automata", format="png", view=False)
 
     def evaluate(self, x: str, detailed=False):
         x_tokenized = []
