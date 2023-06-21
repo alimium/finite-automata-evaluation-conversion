@@ -1,10 +1,13 @@
 # Byte-compiled / optimized / DLL files
 pycache/
+__pycache__/
 .py[cod]
 py.class
 
 # Scratchbooks
 *.scratch.*
+
+figures/
 
 # OS Generated Stuff
 .DS_Store/
