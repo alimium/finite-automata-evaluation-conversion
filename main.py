@@ -27,8 +27,7 @@ def parse_input() -> None:
     return states, alphabet, trans, init_state, accepting, test_strings
 
 
-# states, alphabet, trans, init_state, accepting, test_strings = parse_input()
-
+# Default input
 states = 5
 alphabet = ['a', 'b']
 trans = [(0, 'a', 1), (1, 'a', 0), (0, 'b', 4), (0, 'a', 2),
@@ -36,6 +35,11 @@ trans = [(0, 'a', 1), (1, 'a', 0), (0, 'b', 4), (0, 'a', 2),
 init_state = 0
 accepting = [4]
 test_strings = ['aaa', 'aab']
+
+
+# UCOMMENT NEXT LINE TO USE CUSTOM INPUT INTERFACE
+# states, alphabet, trans, init_state, accepting, test_strings = parse_input()
+
 
 # Create a finite automata
 fa = ENFA(states=states,
@@ -46,9 +50,10 @@ fa = ENFA(states=states,
 
 # Display the finite automata graphically
 fa.display()
+
+# Evaluate strings
 for string in test_strings:
     print(fa.evaluate(string))
-input('\n\nPress any key to continue...')
 # fa.to_DFA() # NOT WORKING PROPERLY YET
 
 # 5 2 1 6 2
