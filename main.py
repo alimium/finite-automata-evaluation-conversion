@@ -1,4 +1,5 @@
 from finite_automata import FiniteAutomata as FA
+from finite_automata.enfa import EpsilonNonDeterministicFiniteAutomata as ENFA
 
 
 def parse_input() -> None:
@@ -31,22 +32,24 @@ def parse_input() -> None:
 states = 5
 alphabet = ['a', 'b']
 trans = [(0, 'a', 1), (1, 'a', 0), (0, 'b', 4), (0, 'a', 2),
-         (2, 'a', 3), (3, 'b', 0)]
+         (2, 'a', 3), (3, 'b', 0), (0, '.', 2)]
 init_state = 0
 accepting = [4]
 test_strings = ['aaa', 'aab']
 
 # Create a finite automata
-fa = FA(states=states,
-        alphabet=alphabet,
-        trans=trans,
-        init_state=init_state,
-        accepting=accepting)
+fa = ENFA(states=states,
+          alphabet=alphabet,
+          trans=trans,
+          init_state=init_state,
+          accepting=accepting)
 
 # Display the finite automata graphically
 fa.display()
 for string in test_strings:
     print(fa.evaluate(string))
+input('\n\nPress any key to continue...')
+# fa.to_DFA() # NOT WORKING PROPERLY YET
 
 # 5 2 1 6 2
 # a
