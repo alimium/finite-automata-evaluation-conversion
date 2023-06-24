@@ -31,10 +31,10 @@ def parse_input() -> None:
 states = 5
 alphabet = ['a', 'b']
 trans = [(0, 'a', 1), (1, 'a', 0), (0, 'b', 4), (0, 'a', 2),
-         (2, 'a', 3), (3, 'b', 0), (0, '.', 2)]
+         (2, 'a', 3), (3, 'b', 0), (0, '$', 2)]
 init_state = 0
 accepting = [4]
-test_strings = ['aaa', 'aab']
+test_strings = ['aa$a', 'aab']
 
 
 # UCOMMENT NEXT LINE TO USE CUSTOM INPUT INTERFACE
