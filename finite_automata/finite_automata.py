@@ -65,7 +65,7 @@ class FiniteAutomata:
         while traverse_history.qsize() > 0:
             current_state, idx = traverse_history.get()
             print(
-                f'\tCurrently proccessing {current_state} -> {x_tokenized[idx]} ...')
+                f'\tCurrently proccessing {current_state} --({x_tokenized[idx]})-> {self.trans[(current_state, x_tokenized[idx])] if (current_state, x_tokenized[idx]) in self.trans.keys() else None} ...')
             if x_tokenized[idx] == "EoS":
                 final_states.append(current_state)
             elif (current_state, x_tokenized[idx]) in self.trans.keys():
