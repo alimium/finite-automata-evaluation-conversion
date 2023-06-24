@@ -37,8 +37,8 @@ accepting = [4]
 test_strings = ['aa$a', 'aab']
 
 
-# UCOMMENT NEXT LINE TO USE CUSTOM INPUT INTERFACE
-# states, alphabet, trans, init_state, accepting, test_strings = parse_input()
+# COMMENT NEXT LINE TO USE HARDCODED INPUT
+states, alphabet, trans, init_state, accepting, test_strings = parse_input()
 
 
 # Create a finite automata
