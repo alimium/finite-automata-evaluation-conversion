@@ -43,7 +43,7 @@ class FiniteAutomata:
         if self.trans is not None:
             for transition in self.trans.items():
                 for dest in transition[1]:
-                    if transition[0][1] == '.':
+                    if transition[0][1] == '$':
                         dot.edge(str(transition[0][0]), str(
                             dest), label='ε')
                     else:
