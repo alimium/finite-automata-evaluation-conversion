@@ -15,31 +15,30 @@ def parse_input() -> None:
 
     for i in range(int(alph_size)):
         alphabet.append(input(f'Enter alphabet {i+1}: '))
-    init_state = input('Enter Initial State Number (0 by Default): ')
+    init_state = int(input('Enter Initial State Number (0 by Default): '))
     for i in range(int(acc_size)):
         accepting.append(int(input(f'Enter Accepting state {i+1}: ')))
     for i in range(int(trans_size)):
         p, s, q = input(f'Enter Transition Rule {i+1}: ').split(' ')
         trans.append((int(p), s, int(q)))
     for i in range(int(str_size)):
-        test_strings.append(input(f'Enter Test String {i}: '))
+        test_strings.append(input(f'Enter Test String {i+1}: '))
 
     return states, alphabet, trans, init_state, accepting, test_strings
 
 
 # Default input
-states = 5
+states = 7
 alphabet = ['a', 'b']
-trans = [(0, 'a', 1), (1, 'a', 0), (0, 'b', 4), (0, 'a', 2),
-         (2, 'a', 3), (3, 'b', 0), (0, '$', 2)]
+trans = [(0, 'a', 0), (0, '$', 1), (0, '$', 4), (1, 'a', 2), (2, 'b', 3),
+         (3, 'b', 1), (4, 'b', 4), (4, '$', 5), (5, 'b', 6), (6, 'a', 5)]
 init_state = 0
-accepting = [4]
-test_strings = ['aa$a', 'aab']
+accepting = [1, 5]
+test_strings = ['$', 'aaa', 'aaab', 'abb', 'abbab', 'abbaba', 'abbc']
 
 
-# COMMENT NEXT LINE TO USE HARDCODED INPUT
-states, alphabet, trans, init_state, accepting, test_strings = parse_input()
-
+# UNCOMMENT NEXT LINE TO USE CUSTOM INPUT
+# states, alphabet, trans, init_state, accepting, test_strings = parse_input()
 
 # Create a finite automata
 fa = ENFA(states=states,
@@ -50,22 +49,33 @@ fa = ENFA(states=states,
 
 # Display the finite automata graphically
 fa.display()
+print(fa)
 
 # Evaluate strings
 for string in test_strings:
     print(fa.evaluate(string))
 # fa.to_DFA() # NOT WORKING PROPERLY YET
 
-# 5 2 1 6 2
+# 7 2 2 10 7
 # a
 # b
 # 0
-# 4
-# 0 a 1
-# 1 a 0
-# 0 b 4
-# 0 a 2
-# 2 a 3
-# 3 b 0
+# 1
+# 5
+# 0 a 0
+# 0 $ 1
+# 0 $ 4
+# 1 a 2
+# 2 b 3
+# 3 b 1
+# 4 b 4
+# 4 $ 5
+# 5 b 6
+# 6 a 5
+# $
 # aaa
-# aab
+# aaab
+# abb
+# abbab
+# abbaba
+# abbc
