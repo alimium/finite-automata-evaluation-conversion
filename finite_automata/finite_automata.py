@@ -54,24 +54,50 @@ class FiniteAutomata:
         dot.render("figures/automata", format="png", view=False)
 
     def evaluate(self, x: str, detailed=False):
+        print('====================================================')
+        print(f'Evaluating {x}')
         x_tokenized = []
         for c in x:
             x_tokenized.append(c)
         x_tokenized.append("EoS")
+        print(f'String Tokenized as {x_tokenized}')
 
         traverse_history = Queue()
         traverse_history.put((self.init_state, 0))
         final_states = []
         while traverse_history.qsize() > 0:
             current_state, idx = traverse_history.get()
+            next_states = []
+            next_epsilon_states = []
             print(
-                f'\tCurrently proccessing {current_state} --({x_tokenized[idx]})-> {self.trans[(current_state, x_tokenized[idx])] if (current_state, x_tokenized[idx]) in self.trans.keys() else None} ...')
+                f'\tCurrently proccessing {current_state}--({x_tokenized[idx]})->{self.trans[(current_state, x_tokenized[idx])] if (current_state, x_tokenized[idx]) in self.trans.keys() else None} ...')
             if x_tokenized[idx] == "EoS":
                 final_states.append(current_state)
             elif (current_state, x_tokenized[idx]) in self.trans.keys():
-                next_states = self.trans[(current_state, x_tokenized[idx])]
-                for state in next_states:
-                    traverse_history.put((state, idx+1))
+                next_states.extend(
+                    self.trans[(current_state, x_tokenized[idx])])
+
+            if (current_state, '$') in self.trans.keys():
+                next_epsilon_states.extend(self.trans[(current_state, '$')])
+
+            for state in next_states:
+                traverse_history.put((state, idx+1))
+            for state in next_epsilon_states:
+                traverse_history.put((state, idx))
 
         intersect = set(final_states) & set(self.accepting)
         return intersect if detailed else len(intersect) > 0
+
+    def __repr__(self) -> str:
+        out = '\n\n====================================================\n'
+        out += self.__class__.__name__ + ' Configuration:\n'
+        out += '====================================================\n'
+        out += f'{"States:":<20}{str(self.states)}\n'
+        out += f'{"Alphabets:":<20}{self.alphabet}\n'
+        out += f'{"Initial State:":<20}{self.init_state}\n'
+        out += f'{"Accepting States:":<20}{self.accepting}\n'
+        out += f'{"Transitions:":<20}\n'
+        for (p, c), q in self.trans.items():
+            out += f'{p:>5}--({c})->{q}\n'
+        out += '\n'
+        return out
